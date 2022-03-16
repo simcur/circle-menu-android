@@ -752,4 +752,20 @@ public class CircleMenuView extends FrameLayout {
         openOrClose(false, animate);
     }
 
+	/**
+	 * Reset button list programmatically
+	 * @param context to create buttons with
+	 * @param icons list of icons for each button
+	 * @param colors list of colors for each button
+	 */
+	public void setButtons(@NonNull Context context, @NonNull List<Integer> icons, @NonNull List<Integer> colors) {
+		// remove existing buttons
+		while ( mButtons.size() > 0 ) {
+			removeView( mButtons.get(0) );
+			mButtons.remove( 0 );
+		}
+		// recreate the buttons
+		initButtons(context, icons, colors);
+	}
+
 }

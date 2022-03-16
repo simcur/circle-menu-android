@@ -3,8 +3,8 @@ apply plugin: 'signing'
 
 // https://github.com/bmuschko/gradle-nexus-plugin
 // not compatible with gradle >= v7.0
-
-if ( ( getProject().getGradle().getGradleVersion() as float ) < 4.0f )
+boolean isNexusCompatible = ( getProject().getGradle().getGradleVersion() as float ) < 4.0f
+if ( isNexusCompatible )
 {
     apply plugin: 'com.bmuschko.nexus'
 }
@@ -33,8 +33,6 @@ android {
     }
 }
 
-println "Running gradle version: $gradle.gradleVersion"
-
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -45,7 +43,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 }
 
-if ( ( getProject().getGradle().getGradleVersion() as float ) < 4.0f ) {
+if ( isNexusCompatible ) {
     modifyPom {
         project {
             name 'Circle Menu for Android'

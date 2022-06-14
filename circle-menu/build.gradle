@@ -3,10 +3,18 @@ apply plugin: 'signing'
 
 // https://github.com/bmuschko/gradle-nexus-plugin
 // not compatible with gradle >= v7.0
-boolean isNexusCompatible = ( getProject().getGradle().getGradleVersion() as float ) < 4.0f
-if ( isNexusCompatible )
+boolean isNexusCompatible = false;
+try
 {
-    apply plugin: 'com.bmuschko.nexus'
+    isNexusCompatible = ( getProject().getGradle().getGradleVersion() as float ) < 4.0f
+    if ( isNexusCompatible )
+    {
+        apply plugin: 'com.bmuschko.nexus'
+    }
+}
+catch (NumberFormatException e)
+{
+    isNexusCompatible = false;
 }
 
 group = 'com.ramotion.circlemenu'
